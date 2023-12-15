@@ -1,4 +1,4 @@
-<%= form_with url: location_searches_path, method: :post do |form| %>
+<%= form_with url: weather_forecasts_path, method: :get do |form| %>
   <%= form.label :location, "Search your Address, City, or Zip Code" %>
   <%= form.text_field :location %>
   <%= form.submit "Search" %>
