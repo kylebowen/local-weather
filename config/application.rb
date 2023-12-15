@@ -42,7 +42,6 @@ module LocalWeather
       g.controller_specs(false)
       g.helper(false)
       g.helper_specs(false)
-      g.system_tests(false)
       g.test_framework(:rspec, fixture: false)
       g.view_specs(false)
     end
