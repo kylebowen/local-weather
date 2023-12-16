@@ -37,6 +37,7 @@ gem "redis", ">= 4.0.1"
 
 # Use to parse address/location info and lookup latitude and longitude
 gem "geocoder"
+gem "open-weather-ruby-client"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
