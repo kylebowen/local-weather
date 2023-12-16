@@ -6,8 +6,9 @@ class WeatherForecastsController < ApplicationController
       redirect_to(weather_forecasts_url(location:)) and return
     else
       # get lat, long for location via geocoder
+      location_result = ::Geocoder.search(location).first || request.location
       # get weather forecast via open-weather-ruby-client
-      render(:index, locals: { location: })
+      render(:index, locals: { location:, location_result: })
     end
   end
 

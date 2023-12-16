@@ -1,4 +1,11 @@
 <div>
-  <%= location %>
-  <%= render("form") %>
+  <p>Location: <%= location %></p>
+  <p>Location Result:</p>
+  <% if location_result.data.keys.length > 2 %>
+    <p><%= location_result.city %>, <%= location_result.state %></p>
+    <p><%= location_result.postal_code %></p>
+    <p><%= location_result.coordinates %></p>
+    <p>Cached: <%= location_result.cache_hit %></p>
+  <% end %>
+  <p><%= render("form") %></p>
 </div>
