@@ -7,4 +7,8 @@ class AppSettings
   def self.geocoder_api_key
     ENV.fetch("GEOAPIFY_API_KEY")
   end
+
+  def self.open_weather_api_key
+    ENV.fetch("OPEN_WEATHER_API_KEY")
+  end
 end

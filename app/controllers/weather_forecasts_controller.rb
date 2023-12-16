@@ -8,7 +8,9 @@ class WeatherForecastsController < ApplicationController
       # get lat, long for location via geocoder
       location_result = ::Geocoder.search(location).first || request.location
       # get weather forecast via open-weather-ruby-client
-      render(:index, locals: { location:, location_result: })
+      latitude, longitude = location_result.coordinates
+      weather_data = ::WeatherService.current_weather(lat: latitude, lon: longitude)
+      render(:index, locals: { location:, location_result:, weather_data: })
     end
   end
 
