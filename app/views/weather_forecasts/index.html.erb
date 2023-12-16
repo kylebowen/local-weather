@@ -1,11 +1,12 @@
 <div>
-  <p>Location: <%= location %></p>
-  <p>Location Result:</p>
-  <% if location_result.data.keys.length > 2 %>
-    <p><%= location_result.city %>, <%= location_result.state %></p>
-    <p><%= location_result.postal_code %></p>
-    <p><%= location_result.coordinates %></p>
-    <p>Cached: <%= location_result.cache_hit %></p>
+  <p>Location:</p>
+  <% if location.postal_code.present? %>
+    <p><%= location.city %>, <%= location.state %></p>
+    <p><%= location.country %></p>
+    <p><%= location.country_code %></p>
+    <p><%= location.postal_code %></p>
+    <p><%= location.coordinates %></p>
+    <p>Cached: <%= location.cache_hit %></p>
   <% end %>
   <p><%= render("form") %></p>
   <p>Current Weather: <%= weather_data %></p>

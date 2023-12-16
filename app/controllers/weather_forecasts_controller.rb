@@ -2,22 +2,23 @@ class WeatherForecastsController < ApplicationController
   before_action :set_session_location
 
   def index
-    if params[:location].blank? && session[:location].present?
-      redirect_to(weather_forecasts_url(location:)) and return
-    else
-      # get lat, long for location via geocoder
-      location_result = ::Geocoder.search(location).first || request.location
-      # get weather forecast via open-weather-ruby-client
-      latitude, longitude = location_result.coordinates
-      weather_data = ::WeatherService.current_weather(lat: latitude, lon: longitude)
-      render(:index, locals: { location:, location_result:, weather_data: })
-    end
+    # get weather forecast via open-weather-ruby-client
+    weather_data = ::WeatherService.current_weather(location:)
+    render(:index, locals: { location:, weather_data: })
   end
 
   private
 
   def location
-    session[:location]
+    @location ||= ::Geocoder.search(search_terms).first
+  end
+
+  def search_terms
+    session[:location] || default_coordinates
+  end
+
+  def default_coordinates
+    ::WeatherService::DEFAULT_LOCATION.coordinates
   end
 
   def set_session_location
