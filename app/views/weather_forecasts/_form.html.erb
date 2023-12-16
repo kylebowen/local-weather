@@ -1,5 +1,8 @@
 <%= form_with url: weather_forecasts_path, method: :get do |form| %>
   <%= form.label :location, "Search your Address, City, or Zip Code" %>
-  <%= form.text_field :location %>
+
+  <%# TODO: fix by disabling button unless text in the field %>
+  <%= form.text_field :location, required: true %>
+
   <%= form.submit "Search" %>
 <% end %>
