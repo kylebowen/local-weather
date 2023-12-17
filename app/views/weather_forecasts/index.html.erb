@@ -1,13 +1,4 @@
-<div>
-  <p>Location:</p>
-  <% if location.postal_code.present? %>
-    <p><%= location.city %>, <%= location.state %></p>
-    <p><%= location.country %></p>
-    <p><%= location.country_code %></p>
-    <p><%= location.postal_code %></p>
-    <p><%= location.coordinates %></p>
-    <p>Cached: <%= location.cache_hit %></p>
-  <% end %>
-  <p><%= render("form") %></p>
-  <p>Current Weather: <%= weather_data %></p>
+<div class="bg-gray-200">
+  <%= render("form") %>
+  <%= render("weather_forecasts/weather_data", cached:, location:, weather_data:, error:) %>
 </div>

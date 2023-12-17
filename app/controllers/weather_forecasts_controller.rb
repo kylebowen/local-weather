@@ -1,27 +1,23 @@
 class WeatherForecastsController < ApplicationController
-  before_action :set_session_location
+  before_action :set_session_search
 
   def index
-    # get weather forecast via open-weather-ruby-client
-    weather_data = ::WeatherService.current_weather(location:)
-    render(:index, locals: { location:, weather_data: })
+    if session[:search].present?
+      cached, location, weather_data = ::WeatherService.current_weather(search: session[:search])
+      render(:index, locals: { cached:, location:, weather_data:, error: nil })
+    else
+      redirect_to(new_weather_forecast_path)
+    end
+  rescue StandardError => e
+    Rails.logger.error { e }
+    # TODO: Maybe instead of rendering a whole new page,
+    #       we do a toast and stay on the same page?
+    render(:index, locals: { cached:, location:, weather_data: , error: e })
   end
 
   private
 
-  def location
-    @location ||= ::Geocoder.search(search_terms).first
-  end
-
-  def search_terms
-    session[:location] || default_coordinates
-  end
-
-  def default_coordinates
-    ::WeatherService::DEFAULT_LOCATION.coordinates
-  end
-
-  def set_session_location
-    session[:location] =  params[:location].present? ? params[:location] : session[:location]
+  def set_session_search
+    session[:search] = params[:search].presence || session[:search]
   end
 end
