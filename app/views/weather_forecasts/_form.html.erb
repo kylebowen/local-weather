@@ -1,11 +1,9 @@
 <div class="flex flex-row justify-between items-center w-96 bg-white rounded-md border-2 border-cyan-400">
   <%= form_with url: weather_forecasts_path, method: :get, class: "flex items-center justify-between w-96 text-cyan-900" do |form| %>
-    <%= form.text_field :query, class: "w-80 py-0 px-1 mx-auto rounded-lg border-none focus:outline-none placeholder:italic placeholder:text-cyan-800/50", placeholder: "Search your Address, City, or Zip Code", required: true %>
+    <%= form.search_field :query, class: "w-80 py-0 px-1 mx-auto rounded-lg border-none focus:outline-none placeholder:italic placeholder:text-cyan-800/50", placeholder: "Search for Address, City, or Zip Code", required: true %>
 
     <%= form.button nil, class: "flex flex-row justify-center content-center bg-teal-400 rounded-sm p-1 h-10 w-12" do %>
-      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-        <path transform="translate(3 3)" d="M7.186 13.554c-3.462 0-6.303-2.869-6.303-6.359C.883 3.681 3.724.837 7.186.837c3.437 0 6.278 2.844 6.278 6.358 0 3.49-2.865 6.359-6.278 6.359zm5.323-1.602a7.176 7.176 0 0 0 1.815-4.757c0-3.968-3.2-7.195-7.138-7.195C3.223 0 0 3.227 0 7.195c0 3.944 3.223 7.171 7.186 7.171a7.058 7.058 0 0 0 4.75-1.84L17.427 18l.573-.55-5.49-5.498z"></path>
-      </svg>
+      <%= render("svgs/search_icon") %>
     <% end %>
   <% end %>
 </div>

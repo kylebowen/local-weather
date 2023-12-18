@@ -3,7 +3,8 @@
   <span class="flex grow ml-2">
     <span class="flex stroke-red-200 h-6 w-6 m-4"><%= render("svgs/cached") if cached %></span>
   </span>
-  <span class="flex text-sm">As of <%= weather_data.dt.in_time_zone("MST").strftime("%l:%M %p %Z") %></span>
+  <%# TODO: Convert UTC to the user's timezone for display %>
+  <span class="flex text-sm">As of <%= weather_data.dt.strftime("%l:%M %p %Z") %></span>
 </div>
 
 <div class="flex flex-row justify-between">
@@ -43,7 +44,7 @@
     </span>
     <span class="flex justify-between">
       <span class="m-3">Pressure</span>
-      <span class="m-3"><%= weather_data.main.pressure.round %></span>
+      <span class="m-3"><%= weather_data.main.pressure.round %> hPa</span>
     </span>
     <span class="flex justify-between">
       <span class="m-3">Cloud Cover</span>
