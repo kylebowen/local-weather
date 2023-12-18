@@ -2,7 +2,7 @@
   <%= form_with url: weather_forecasts_path, method: :get, class: "flex items-center justify-between w-96 text-cyan-900" do |form| %>
     <%= form.search_field :query, class: "w-80 py-0 px-1 mx-auto rounded-lg border-none focus:outline-none placeholder:italic placeholder:text-cyan-800/50", placeholder: "Search for Address, City, or Zip Code", required: true %>
 
-    <%= form.button nil, class: "flex flex-row justify-center content-center bg-teal-400 rounded-sm p-1 h-10 w-12" do %>
+    <%= form.button nil, class: "flex flex-row justify-center content-center bg-teal-400 rounded-sm p-1 h-10 w-12", id: :search do %>
       <%= render("svgs/search_icon") %>
     <% end %>
   <% end %>
