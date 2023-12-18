@@ -5,7 +5,7 @@
 # to fail if a required key is missing. (which is good!)
 class AppSettings
   def self.geocoder_api_key
-    ENV.fetch("GEOAPIFY_API_KEY")
+    ENV.fetch("GEOCODER_API_KEY")
   end
 
   def self.open_weather_api_key
