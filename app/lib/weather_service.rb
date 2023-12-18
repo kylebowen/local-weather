@@ -13,7 +13,7 @@ class WeatherService
     @query = query
     @lang = lang
     @units = units
-    @client = ::WeatherServiceClient.instance.open_weather
+    @client = ::WeatherServiceClient.instance
   end
 
   def current_weather
