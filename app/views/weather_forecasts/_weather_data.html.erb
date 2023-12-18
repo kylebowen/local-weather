@@ -1,23 +1,70 @@
-<% if cached %>
-  <p>CACHED!</p>
-<% end %>
-
-<p>Current Weather:</p>
-<p>As of: <%= weather_data.dt.in_time_zone("MST").strftime("%l:%M %p %Z") %></p>
-<p><%= location.city.presence || weather_data.name %>, <%= (location.state_code.presence || location.state.presence || location.country_code.presence || location.country) %></p>
-<p>Temp: <%= weather_data.main.temp.round %></p>
-<p>Feels like: <%= weather_data.main.feels_like.round %></p>
-<p>High: <%= weather_data.main.temp_max.round %></p>
-<p>Low: <%= weather_data.main.temp_min.round %></p>
-<p>Humidity: <%= weather_data.main.humidity.round %></p>
-<p>Pressure: <%= weather_data.main.pressure.round %></p>
-<p>Sunrise: <%= weather_data.sys.sunrise.in_time_zone(weather_data.timezone).strftime("%l:%M %p %Z") %></p>
-<p>Sunset: <%= weather_data.sys.sunset.in_time_zone(weather_data.timezone).strftime("%l:%M %p %Z") %></p>
-<% direction_table = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"] %>
-<% wind_direction = direction_table[((weather_data.wind.deg + 11.25)/22.5).floor] %>
-<p>Wind: <%= wind_direction %> <%= weather_data.wind.speed.round %> mph</p>
-<p>Weather: <%= weather_data.weather.first.main %></p>
-<div class="flex items-center">
-  <span>Icon:</span>
-  <img class="scale-150" src="<%= weather_data.weather.first.icon_uri %>" alt="<%= weather_data.weather.first.description %>" />
+<div class="flex items-baseline justify-between content-center py-2 px-8">
+  <span class="flex text-3xl"><%= "#{location.city.presence || weather_data.name}" %></span>
+  <span class="flex grow ml-2">
+    <span class="flex stroke-red-200 h-6 w-6 m-4"><%= render("svgs/cached") if cached %></span>
+  </span>
+  <span class="flex text-sm">As of <%= weather_data.dt.in_time_zone("MST").strftime("%l:%M %p %Z") %></span>
 </div>
+
+<div class="flex flex-row justify-between">
+  <div class="flex flex-col basis-1/2 items-start content-between justify-between">
+    <div class="flex flex-row basis-3/4 items-center content-center w-full px-8 pt-8 pb-2">
+      <span class="flex text-8xl text-neutral-800 font-semibold"><%= weather_data.main.temp.round %>&deg;</span>
+      <span class="flex flex-row items-baseline text-neutral-900 -ml-8 -mb-11">
+        <span class="text-sm mr-1">Feels like</span>
+        <span class="text-3xl"><%= weather_data.main.feels_like.round %>&deg;</span>
+      </span>
+    </div>
+    <div class="flex flex-col basis-1/4 w-full px-8 pt-3 pb-3">
+      <span class="flex">
+        <span class="font-semibold text-lg"><%= weather_data.weather.first.main %></span>
+      </span>
+      <span class="flex flex-row justify-between">
+        <span>High <%= weather_data.main.temp_max.round %>&deg; / Low <%= weather_data.main.temp_min.round %>&deg;</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="basis-1/4 content-center">
+    <div class="flex mx-2 my-6">
+      <span class="scale-150">
+        <img class="scale-150" src="<%= weather_data.weather.first.icon_uri %>" alt="<%= weather_data.weather.first.description %>" />
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<div class="flex flex-row justify-between py-2 px-8">
+  <div class="flex flex-col basis-72 divide-neutral-300 divide-y-2">
+    <span class="flex justify-between">
+      <span class="m-3">Humidity</span>
+      <span class="m-3"><%= weather_data.main.humidity.round %>&percnt;</span>
+    </span>
+    <span class="flex justify-between">
+      <span class="m-3">Pressure</span>
+      <span class="m-3"><%= weather_data.main.pressure.round %></span>
+    </span>
+    <span class="flex justify-between">
+      <span class="m-3">Cloud Cover</span>
+      <span class="m-3"><%= weather_data.clouds.all %>&percnt;</span>
+    </span>
+  </div>
+  <div class="flex flex-col basis-72 divide-neutral-300 divide-y-2">
+    <span class="flex justify-between">
+      <span class="m-3">Sunrise</span>
+      <span class="m-3"><%= weather_data.sys.sunrise.in_time_zone(weather_data.timezone).strftime("%l:%M %p") %></span>
+    </span>
+    <span class="flex justify-between">
+      <span class="m-3">Sunset</span>
+      <span class="m-3"><%= weather_data.sys.sunset.in_time_zone(weather_data.timezone).strftime("%l:%M %p") %></span>
+    </span>
+    <span class="flex justify-between">
+      <% direction_table = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"] %>
+      <% wind_direction = direction_table[((weather_data.wind.deg + 11.25)/22.5).floor] %>
+      <span class="m-3">Wind</span>
+      <span class="m-3"><%= wind_direction %> <%= weather_data.wind.speed.round %> mph</span>
+    </span>
+  </div>
+</div>
+

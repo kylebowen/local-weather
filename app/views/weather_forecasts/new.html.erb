@@ -1,1 +1,19 @@
-<%= render("form") %>
+<div class="flex justify-items-center justify-center items-center content-center">
+  <%# FIXME: horrible hack to increase logo size %>
+  <div class="scale-150">
+    <div class="scale-150">
+      <div class="scale-150">
+        <div class="scale-150 opacity-40">
+          <%= render("svgs/logo") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex justify-items-center justify-center items-center content-center">
+  <div class="relative top-12">
+    <div class="relative -top-96 z-20 text-3xl text-cyan-800">
+      <p>Please select a location to view the current weather</p>
+    </div>
+  </div>
+</div>

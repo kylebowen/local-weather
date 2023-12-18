@@ -1,3 +1,13 @@
-<header class="text-bold text-4xl">
-  <h1><a href="/">Local Weather</a></h1>
+<header>
+  <nav class="bg-cyan-200 border-cyan-300 border-b-2 px-6 py-2">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <a href="/" class="flex items-center">
+        <%= render("svgs/logo") %>
+        <span class="self-center ml-3 text-3xl text-cyan-900 font-semibold whitespace-nowrap">Local Weather</span>
+      </a>
+      <div class="flex flex-wrap items-center font-medium">
+        <%= render("weather_forecasts/form") %>
+      </div>
+    </div>
+  </nav>
 </header>
