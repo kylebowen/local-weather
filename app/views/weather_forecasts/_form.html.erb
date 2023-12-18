@@ -1,6 +1,5 @@
 <%= form_with url: weather_forecasts_path, method: :get do |form| %>
-  <%= form.label :search, "Search your Address, City, or Zip Code" %>
-  <%= form.text_field :search, required: true %>
+  <%= form.text_field :query, required: true %>
 
   <%= form.submit "Search" %>
 <% end %>

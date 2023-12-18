@@ -5,17 +5,25 @@ class WeatherService
     end
   end
 
-  attr_accessor :client
+  def self.current_weather(...)
+    new(...).current_weather
+  end
 
-  def self.current_weather(search:, lang: :en, units: :imperial)
-    location = ::Geocoder.search(search).first
-    lat, lon = location.coordinates
+  def initialize(query:, lang: :en, units: :imperial)
+    @query = query
+    @lang = lang
+    @units = units
+    @client = ::WeatherServiceClient.instance.open_weather
+  end
 
+  def current_weather
+    @location = ::Geocoder.search(query).first
     cached = true
-    cache_key = "open_weather:current_weather:#{location.postal_code}"
+
     weather = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
       cached = false
-      new.client.current_weather(lat:, lon:, lang:, units:)
+      lat, lon = location.coordinates
+      client.current_weather(lat:, lon:, lang:, units:)
     end
     # TODO: combine into a single PORO
     [cached, location, weather]
@@ -24,7 +32,11 @@ class WeatherService
     raise ForecastUnavailableError
   end
 
-  def initialize
-    @client = ::WeatherServiceClient.instance.open_weather
+  private
+
+  attr_reader :client, :lang, :location, :query, :units
+
+  def cache_key
+    "open_weather:current_weather:#{location.country}:#{location.postal_code}:#{location.city}"
   end
 end
