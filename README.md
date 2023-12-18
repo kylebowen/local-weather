@@ -2,6 +2,10 @@
 
 Welcome to the Local Weather App! This Ruby on Rails project allows users to input an address, city, or zip code and view the current weather forecast.
 
+<img width="872" alt="Screenshot 2023-12-18 at 1 52 58 AM" src="https://github.com/kylebowen/local-weather/assets/15739331/f56cfb52-e673-42a3-a1db-907bd878479e">
+
+---
+
 ## Getting Started
 
 ### Prerequisites
@@ -26,20 +30,20 @@ Make sure you have the following installed:
    cd local-weather
    ```
 
-3. Install dependencies:
+5. Install dependencies:
 
    ```bash
    bundle install
    ```
 
-4. [OPTIONAL] Create the database and run migrations:
+6. [OPTIONAL] Create the database and run migrations:
 
    ```bash
    rails db:create
    rails db:migrate
    ```
 
-5. Set up your environment variables by creating a `.env` file:
+7. Set up your environment variables by creating a `.env` file:
 
    ```bash
    touch .env
@@ -54,7 +58,7 @@ Make sure you have the following installed:
 
    Replace `<your_geocoder_api_key>` and `<your_open_weather_api_key>` with your actual API keys.
 
-6. Run the specs:
+8. Run the specs:
 
    ```bash
    bin/rspec
