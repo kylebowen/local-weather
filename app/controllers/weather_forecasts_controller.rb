@@ -7,15 +7,14 @@ class WeatherForecastsController < ApplicationController
   def index
     if session[:query].present?
       cached, location, weather_data = ::WeatherService.current_weather(query: session[:query])
-      render(:index, locals: { cached:, location:, weather_data:, error: nil })
+      render(:index, locals: { cached:, location:, weather_data: })
     else
       redirect_to(new_weather_forecast_path)
     end
   rescue StandardError => e
     Rails.logger.error { e }
-    # TODO: Maybe instead of rendering a whole new page,
-    #       we do a toast and stay on the same page?
-    render(:index, locals: { cached:, location:, weather_data: , error: e })
+    # TODO: Use Hotwire/Turbo to display an error toast without needing a re-render.
+    render(new_weather_forecast_path)
   end
 
   private
