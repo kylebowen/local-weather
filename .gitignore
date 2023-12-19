@@ -38,3 +38,5 @@
 !/app/assets/builds/.keep
 
 /spec/examples.txt
+# Don't track SimpleCov spec coverage artifacts
+coverage
